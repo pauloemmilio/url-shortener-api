@@ -5,6 +5,7 @@ import com.paulo.urlshortner.domain.model.Url
 import com.paulo.urlshortner.service.UrlService
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletResponse
+import javax.validation.Valid
 
 @RestController
 class UrlController(
@@ -12,7 +13,8 @@ class UrlController(
 ) {
 
     @PostMapping("/url/short")
-    fun short(@RequestBody urlDto: UrlDto): UrlDto {
+    fun short(@RequestBody @Valid urlDto: UrlDto): UrlDto {
+        urlService.validate(urlDto)
         return urlService.short(urlDto)
     }
 
